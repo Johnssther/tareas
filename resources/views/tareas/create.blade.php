@@ -17,7 +17,11 @@
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="status" class="form-label">Estado</label>
-                            <input type="text" class="form-control" id="status" name="status">
+                            <select class="form-select" aria-label="Default select example" name="status" id="status">
+                                <option value="Pendiente">Pendiente</option>
+                                <option value="Iniciado">Iniciado</option>
+                                <option value="Finalizado">Finalizado</option>
+                              </select>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Registrar tarea</button>
