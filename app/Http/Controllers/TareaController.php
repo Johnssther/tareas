@@ -16,7 +16,7 @@ class TareaController extends Controller
      */
     public function index()
     {
-        $tareas = Tarea::get();
+        $tareas = Tarea::orderBy('id', 'asc')->get();
         return Inertia::render('Tasks/Index', ['tareas' => $tareas]);
     }
 
@@ -27,7 +27,7 @@ class TareaController extends Controller
      */
     public function create()
     {
-        $tareas = Tarea::get();
+        $tareas = Tarea::orderBy('id', 'asc')->get();
         return Inertia::render('Tasks/Create', ['tareas' => $tareas]);
     }
 
