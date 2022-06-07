@@ -1,10 +1,9 @@
 import React from 'react';
 import Authenticated from '@/Layouts/Authenticated';
-import { Inertia } from "@inertiajs/inertia";
 import { Link, Head, useForm } from '@inertiajs/inertia-react';
 
 export default function Create(props) {
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, post, put, delete: destroy, processing, errors, reset } = useForm({
         nombre: '',
         status: 'Pendiente',
     });
@@ -13,12 +12,17 @@ export default function Create(props) {
     };
     const submit = (e) => {
         e.preventDefault();
-
         post(route('tareas.store'));
     };
-    const destroy = (id) => {
+    const update = (e, id) => {
+        e.preventDefault();
+        onHandleChange(e)
+        console.log(id);
+        put(route("tareas.update", id));
+    };
+    const eliminar = (id) => {
         // if (confirm("Are you sure you want to delete this user?")) {
-        Inertia.delete(route("tareas.destroy", id));
+        destroy(route("tareas.destroy", id));
         // }
     }
     console.log(processing);
@@ -81,15 +85,24 @@ export default function Create(props) {
                                 {
                                     props.tareas.map((tarea) => {
                                         return (
-                                            <tr key={tarea.id}>
+                                            <tr key={tarea.id} className={tarea.status === 'Pendiente' ? 'bg-warning' : ''}>
                                                 <td scope="col">{tarea.id}</td>
                                                 <td scope="col">{tarea.nombre}</td>
-                                                <td scope="col">{tarea.status}</td>
+                                                <td scope="col">
+                                                    <select className="form-select" name={`status`}
+                                                        onChange={(e) => update(e, tarea.id)}
+                                                        defaultValue={tarea.status}
+                                                    >
+                                                        <option value="Pendiente">Pendiente</option>
+                                                        <option value="Iniciado">Iniciado</option>
+                                                        <option value="Finalizado">Finalizado</option>
+                                                    </select>
+                                                </td>
                                                 <td scope="col">
                                                     {
                                                         !processing ?
                                                             <button
-                                                                onClick={() => destroy(tarea.id)}
+                                                                onClick={() => eliminar(tarea.id)}
                                                                 className="btn btn-sm btn-danger"
                                                             >
                                                                 Destruir

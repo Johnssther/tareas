@@ -17,7 +17,7 @@ class TareaController extends Controller
     public function index()
     {
         $tareas = Tarea::get();
-        return Inertia::render('Tasks/Index', [ 'tareas' => $tareas ]);
+        return Inertia::render('Tasks/Index', ['tareas' => $tareas]);
     }
 
     /**
@@ -28,7 +28,7 @@ class TareaController extends Controller
     public function create()
     {
         $tareas = Tarea::get();
-        return Inertia::render('Tasks/Create', [ 'tareas' => $tareas ]);
+        return Inertia::render('Tasks/Create', ['tareas' => $tareas]);
     }
 
     /**
@@ -48,7 +48,6 @@ class TareaController extends Controller
                 $tarea->save();
                 DB::commit();
                 return redirect()->route('tareas.create');
-
             } catch (\Exception $e) {
                 DB::rollback();
                 Log::error($e->getMessage());
@@ -90,7 +89,23 @@ class TareaController extends Controller
      */
     public function update(Request $request, Tarea $tarea)
     {
-        //
+
+        $data = $request->all();
+        //if ($tarea->isValid($request, $data)) {
+            DB::beginTransaction();
+            try {
+                $tarea->status = $data['status'];
+                $tarea->save();
+                DB::commit();
+                return redirect()->route('tareas.create');
+            } catch (\Exception $e) {
+                DB::rollback();
+                Log::error($e->getMessage());
+                dd($e->getMessage());
+                return response()->json(['success' => false, 'errors' => 'Ha ocurrido un error inesperado']);
+            }
+        //}
+        dd('error');
     }
 
     /**
