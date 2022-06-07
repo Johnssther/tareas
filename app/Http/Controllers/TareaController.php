@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin\Tarea;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 use DB, Log;
 
 class TareaController extends Controller
@@ -16,7 +17,7 @@ class TareaController extends Controller
     public function index()
     {
         $tareas = Tarea::get();
-        return view('tareas.index', ['tareas' => $tareas]);
+        return Inertia::render('Tasks/Index', [ 'tareas' => $tareas ]);
     }
 
     /**
@@ -27,7 +28,7 @@ class TareaController extends Controller
     public function create()
     {
         $tareas = Tarea::get();
-        return view('tareas.create', ['tareas' => $tareas]);
+        return Inertia::render('Tasks/Create', [ 'tareas' => $tareas ]);
     }
 
     /**
