@@ -1,12 +1,12 @@
 import React from 'react';
-import Authenticated from '@/Layouts/Authenticated';
+import Admin from '@/Layouts/Admin';
 import { Link } from '@inertiajs/inertia-react';
 import { Head } from '@inertiajs/inertia-react';
 
 export default function Create(props) {
     const { tareas } = props
     return (
-        <Authenticated
+        <Admin
             auth={props.auth}
             errors={props.errors}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Tareas</h2>}
@@ -22,27 +22,11 @@ export default function Create(props) {
                     </div>
                     <div className="card-body">
                         <div className='row'>
-                            {
-                                tareas.map((tarea) => {
-                                    return (
-                                        <div class="card col-3 m-1" key={tarea.id}>
-                                            <div class="card-body">
-                                                <h5 class="card-title">{tarea.id}. {tarea.nombre}</h5>
-                                                {
-                                                    tarea.status === 'Pendiente' ? 
-                                                    <span class="badge bg-warning text-bg-success">{tarea.status}</span>
-                                                    :
-                                                    <span class="badge bg-light text-dark">{tarea.status}</span>
-                                                }
-                                            </div>
-                                        </div>
-                                    )
-                                })
-                            }
+                            wefr
                         </div>
                     </div>
                 </div>
             </div>
-        </Authenticated>
+        </Admin>
     );
 }

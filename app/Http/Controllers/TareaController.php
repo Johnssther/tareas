@@ -16,8 +16,8 @@ class TareaController extends Controller
      */
     public function index()
     {
-        $tareas = Tarea::orderBy('id', 'desc')->get();
-        return Inertia::render('Tasks/Index', ['tareas' => $tareas]);
+        $tareas = Tarea::where('user_id', auth()->user()->id)->orderBy('id', 'desc')->get();
+        return Inertia::render('Tareas/Index', ['tareas' => $tareas]);
     }
 
     /**
@@ -27,8 +27,8 @@ class TareaController extends Controller
      */
     public function create()
     {
-        $tareas = Tarea::orderBy('id', 'desc')->get();
-        return Inertia::render('Tasks/Create', ['tareas' => $tareas]);
+        $tareas = Tarea::where('user_id', auth()->user()->id)->orderBy('id', 'desc')->get();
+        return Inertia::render('Tareas/Create', ['tareas' => $tareas]);
     }
 
     /**
@@ -45,6 +45,7 @@ class TareaController extends Controller
             DB::beginTransaction();
             try {
                 $tarea->fill($data);
+                $tarea->user_id = auth()->user()->id;
                 $tarea->save();
                 DB::commit();
                 return redirect()->route('tareas.create');
@@ -89,7 +90,6 @@ class TareaController extends Controller
      */
     public function update(Request $request, Tarea $tarea)
     {
-
         $data = $request->all();
         //if ($tarea->isValid($request, $data)) {
         DB::beginTransaction();

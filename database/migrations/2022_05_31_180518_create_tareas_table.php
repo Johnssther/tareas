@@ -17,7 +17,10 @@ class CreateTareasTable extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('status', 15);
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
         });
     }
 

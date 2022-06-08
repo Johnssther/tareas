@@ -66,53 +66,55 @@ export default function Create(props) {
                             </div>
                             <button type="submit" className="btn btn-primary">Registrar tarea</button>
                         </form>
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Código</th>
-                                    <th scope="col">Tarea</th>
-                                    <th scope="col">Estado</th>
-                                    <th scope="col">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    props.tareas.map((tarea) => {
-                                        return (
-                                            <tr key={tarea.id} className={tarea.status === 'Pendiente' ? 'bg-warning' : ''}>
-                                                <td scope="col">{tarea.id}</td>
-                                                <td scope="col">{tarea.nombre}</td>
-                                                <td scope="col">
-                                                    <select className="form-select" name={`status`}
-                                                        onChange={onHandleChange}
-                                                        defaultValue={tarea.status}
-                                                    >
-                                                        <option value="Pendiente">Pendiente</option>
-                                                        <option value="Iniciado">Iniciado</option>
-                                                        <option value="Finalizado">Finalizado</option>
-                                                    </select>
-                                                </td>
-                                                <td scope="col">
-                                                    <button
-                                                        onClick={() => eliminar(tarea.id)}
-                                                        className="btn btn-sm btn-danger"
-                                                    >
-                                                        Destruir
-                                                    </button>
-                                                    <button
-                                                        onClick={(e) => update(e, tarea.id)}
-                                                        className="btn btn-sm btn-success"
-                                                    >
-                                                        Actualizar
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        )
-                                    })
-                                }
-                            </tbody>
-                        </table>
                     </div>
+                </div>
+                <div className='card mt-2'>
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Código</th>
+                                <th scope="col">Tarea</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                props.tareas.map((tarea) => {
+                                    return (
+                                        <tr key={tarea.id} className={tarea.status === 'Pendiente' ? 'bg-warning' : ''}>
+                                            <td scope="col">{tarea.id}</td>
+                                            <td scope="col">{tarea.nombre}</td>
+                                            <td scope="col">
+                                                <select className="form-select" name={`status`}
+                                                    onChange={onHandleChange}
+                                                    defaultValue={tarea.status}
+                                                >
+                                                    <option value="Pendiente">Pendiente</option>
+                                                    <option value="Iniciado">Iniciado</option>
+                                                    <option value="Finalizado">Finalizado</option>
+                                                </select>
+                                            </td>
+                                            <td scope="col">
+                                                <button
+                                                    onClick={() => eliminar(tarea.id)}
+                                                    className="btn btn-sm btn-danger"
+                                                >
+                                                    Destruir
+                                                </button>
+                                                <button
+                                                    onClick={(e) => update(e, tarea.id)}
+                                                    className="btn btn-sm btn-success"
+                                                >
+                                                    Actualizar
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </Authenticated>
