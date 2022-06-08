@@ -21,30 +21,25 @@ export default function Create(props) {
                         </Link>
                     </div>
                     <div className="card-body">
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Código</th>
-                                    <th scope="col">Tarea</th>
-                                    <th scope="col">Estado</th>
-                                    <th scope="col">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    tareas.map((tarea) => {
-                                        return (
-                                            <tr key={tarea.id}>
-                                                <td scope="col">{tarea.id}</td>
-                                                <td scope="col">{tarea.nombre}</td>
-                                                <td scope="col">{tarea.status}</td>
-                                                <td scope="col">eliminar</td>
-                                            </tr>
-                                        )
-                                    })
-                                }
-                            </tbody>
-                        </table>
+                        <div className='row'>
+                            {
+                                tareas.map((tarea) => {
+                                    return (
+                                        <div class="card col-3 m-1" key={tarea.id}>
+                                            <div class="card-body">
+                                                <h5 class="card-title">{tarea.id}. {tarea.nombre}</h5>
+                                                {
+                                                    tarea.status === 'Pendiente' ? 
+                                                    <span class="badge bg-warning text-bg-success">{tarea.status}</span>
+                                                    :
+                                                    <span class="badge bg-light text-dark">{tarea.status}</span>
+                                                }
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

@@ -16,7 +16,7 @@ class Tarea extends Model
      */
     protected $table = 'tareas';
 
-    public $timestamps = false;
+    public $timestamps = true;
     /**
      * The attributes that are mass assignable.
      *

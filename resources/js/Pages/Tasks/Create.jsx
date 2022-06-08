@@ -14,10 +14,8 @@ export default function Create(props) {
         e.preventDefault();
         post(route('tareas.store'));
     };
-    const update = (e, id) => {
-        e.preventDefault();
-        onHandleChange(e)
-        console.log(id);
+    const update = async (event, id) => {
+        event.preventDefault();
         put(route("tareas.update", id));
     };
     const eliminar = (id) => {
@@ -35,6 +33,9 @@ export default function Create(props) {
             <Head title="Tareas" />
             <div className="container mt-3">
                 <div className="card mt-3">
+                    <div className={`${processing ? 'loading' : ''}`}>
+                        <div className={`${processing ? 'spinner-border' : ''}`}></div>
+                    </div>
                     <div className="card-header">
                         <Link href={route('tareas.index')} className="underline text-sm text-gray-600 hover:text-gray-900">
                             Lista de Tareas
@@ -63,14 +64,7 @@ export default function Create(props) {
                                     </select>
                                 </div>
                             </div>
-                            {
-                                !processing ?
-                                    <button type="submit" className="btn btn-primary">Registrar tarea</button>
-                                    :
-                                    <div className="spinner-border" role="status">
-                                        <span className="visually-hidden">Loading...</span>
-                                    </div>
-                            }
+                            <button type="submit" className="btn btn-primary">Registrar tarea</button>
                         </form>
                         <table className="table">
                             <thead>
@@ -90,7 +84,7 @@ export default function Create(props) {
                                                 <td scope="col">{tarea.nombre}</td>
                                                 <td scope="col">
                                                     <select className="form-select" name={`status`}
-                                                        onChange={(e) => update(e, tarea.id)}
+                                                        onChange={onHandleChange}
                                                         defaultValue={tarea.status}
                                                     >
                                                         <option value="Pendiente">Pendiente</option>
@@ -99,19 +93,18 @@ export default function Create(props) {
                                                     </select>
                                                 </td>
                                                 <td scope="col">
-                                                    {
-                                                        !processing ?
-                                                            <button
-                                                                onClick={() => eliminar(tarea.id)}
-                                                                className="btn btn-sm btn-danger"
-                                                            >
-                                                                Destruir
-                                                            </button>
-                                                            :
-                                                            <div className="spinner-border" role="status">
-                                                                <span className="visually-hidden">Loading...</span>
-                                                            </div>
-                                                    }
+                                                    <button
+                                                        onClick={() => eliminar(tarea.id)}
+                                                        className="btn btn-sm btn-danger"
+                                                    >
+                                                        Destruir
+                                                    </button>
+                                                    <button
+                                                        onClick={(e) => update(e, tarea.id)}
+                                                        className="btn btn-sm btn-success"
+                                                    >
+                                                        Actualizar
+                                                    </button>
                                                 </td>
                                             </tr>
                                         )

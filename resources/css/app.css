@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bg-image {
+    background-image: url('https://cdn.pixabay.com/photo/2017/02/10/03/12/winter-2054297_960_720.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.loading {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(252, 252, 252, 0.529);
+    position: absolute;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
