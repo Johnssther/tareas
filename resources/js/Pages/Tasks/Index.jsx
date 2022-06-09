@@ -4,25 +4,47 @@ import { Link } from '@inertiajs/inertia-react';
 import { Head } from '@inertiajs/inertia-react';
 
 export default function Create(props) {
-    const { tareas } = props
+    const { tasks } = props
+    console.log(tasks);
     return (
         <Admin
             auth={props.auth}
             errors={props.errors}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Tareas</h2>}
+            header={'Tasks'}
         >
-            <Head title="Tareas" />
+            <Head title="Tasks" />
 
             <div className="container mt-3">
                 <div className="card mt-3">
                     <div className='card-header'>
-                        <Link href={route('tareas.create')} className="underline text-sm text-gray-600 hover:text-gray-900">
-                            Crear tarea
+                        <Link href={route('tasks.create')} className="btn btn-sm btn-primary">
+                            Nuevo
                         </Link>
                     </div>
                     <div className="card-body">
                         <div className='row'>
-                            wefr
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Estado</th>
+                                        <th scope="col">Prioridad</th>
+                                        <th scope="col">Fecha creacion</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        tasks.map((task) => {
+                                            <tr key={task.id}>
+                                                <th scope="row">{ task.name }</th>
+                                                <td>{task.status}</td>
+                                                <td>{task.priority_level}</td>
+                                                <td>{task.completion_time}</td>
+                                            </tr>
+                                        })
+                                    }
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

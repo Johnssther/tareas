@@ -1,5 +1,5 @@
 import React from 'react';
-import Authenticated from '@/Layouts/Authenticated';
+import Admin from '@/Layouts/Admin';
 import { Link, Head, useForm } from '@inertiajs/inertia-react';
 
 export default function Create(props) {
@@ -25,10 +25,10 @@ export default function Create(props) {
     }
     console.log(processing);
     return (
-        <Authenticated
+        <Admin
             auth={props.auth}
             errors={props.errors}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Tareas</h2>}
+            header={'Crear Tarea'}
         >
             <Head title="Tareas" />
             <div className="container mt-3">
@@ -117,6 +117,6 @@ export default function Create(props) {
                     </table>
                 </div>
             </div>
-        </Authenticated>
+        </Admin>
     );
 }

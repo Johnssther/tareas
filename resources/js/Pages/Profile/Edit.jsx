@@ -1,5 +1,5 @@
 import React from 'react';
-import Authenticated from '@/Layouts/Authenticated';
+import Admin from '@/Layouts/Admin';
 import { Link, Head, useForm, usePage } from '@inertiajs/inertia-react';
 
 export default function Edit(props) {
@@ -19,19 +19,13 @@ export default function Edit(props) {
         put(route("profile.update", props.user.id));
     };
     return (
-        <Authenticated
+        <Admin
             auth={props.auth}
             errors={props.errors}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Actualizar Perfíl</h2>}
+            header={'Actualizar Perfíl'}
         >
             <Head title="Perfil" />
             <form onSubmit={submit}>
-                {
-                    data.email_verified_at === null ?
-                        (<div className="alert alert-danger" role="alert">
-                            Correo sin verificar
-                        </div>) : null
-                }
                 <div className="container mt-3">
                     <div className="card mt-3 row">
                         <div className={`${processing ? 'loading' : ''}`}>
@@ -114,6 +108,6 @@ export default function Edit(props) {
                     </div>
                 </div>
             </form>
-        </Authenticated>
+        </Admin>
     );
 }

@@ -6,17 +6,71 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/inertia-react';
 
 export default function Admin({ auth, header, children }) {
+    console.log(header);
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <>
+            <nav className="navbar navbar-expand-lg navbar-white bg-white">
+                <div className="container-fluid">
+                    <a className="navbar-brand text-dark" href="#">Tareas</a>
+                    <button className="bg-warning navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li className="nav-item">
+                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                    Dashboard
+                                </NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink href={route('tareas.index')} active={route().current('tareas.index')}>
+                                    Tareas
+                                </NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink href={route('tasks.index')} active={route().current('tasks.index')}>
+                                    Tasks
+                                </NavLink>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <ul className="navbar-nav me-auto mb-2 mb-lg-0 d-flex">
+                        <li className="nav-item dropdown">
+                            <a className="nav-link text-secondary dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {auth.user.name}
+                            </a>
+                            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a className="dropdown-item" href={route('profile.edit', auth.user.id)} method="get">Perfil</a></li>
+                                <li><a className="dropdown-item" href={route('logout')} method="post">Salir</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            {
+                auth.user.email_verified_at === null ?
+                    (<div className="alert alert-success" role="alert">
+                        ¡Correo sin verificar!
+                    </div>) : null
+            }
+
             {header && (
-                <header className="bg-white shadow">
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
-                </header>
+                <div className='mt-3'>
+                    <div className='container'>
+                        <nav aria-label="breadcrumb container">
+                            <ol className="breadcrumb">
+                                <li className="breadcrumb-item" aria-current="page">Home</li>
+                                <li className="breadcrumb-item active" aria-current="page">{header}</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
             )}
 
             <main>{children}</main>
-        </div>
+        </>
     );
 }

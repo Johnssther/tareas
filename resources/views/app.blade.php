@@ -27,7 +27,7 @@
     <title>Tareas!</title>
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans antialiased" style="background: #ededf3">
     @inertia
 
     {{-- @env('local')

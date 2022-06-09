@@ -1,15 +1,15 @@
 import React from 'react';
-import Authenticated from '@/Layouts/Authenticated';
+import Admin from '@/Layouts/Admin';
 import { Link } from '@inertiajs/inertia-react';
 import { Head } from '@inertiajs/inertia-react';
 
 export default function Create(props) {
     const { tareas } = props
     return (
-        <Authenticated
+        <Admin
             auth={props.auth}
             errors={props.errors}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Tareas</h2>}
+            header={'Tareas'}
         >
             <Head title="Tareas" />
 
@@ -43,6 +43,6 @@ export default function Create(props) {
                     </div>
                 </div>
             </div>
-        </Authenticated>
+        </Admin>
     );
 }
