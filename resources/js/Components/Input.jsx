@@ -19,13 +19,13 @@ export default function Input({
     }, []);
 
     return (
-        <div className="flex flex-col items-start">
+        <div className="form-outline mb-4">
             <input
                 type={type}
                 name={name}
                 value={value}
                 className={
-                    `border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm ` +
+                    `form-control form-control-lg ` +
                     className
                 }
                 ref={input}
