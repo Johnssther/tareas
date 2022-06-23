@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\Task;
 use Inertia\Inertia;
+use DB, Log;
 
 class TaskController extends Controller
 {
@@ -27,7 +28,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Tasks/Create');
     }
 
     /**
@@ -38,7 +39,23 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $task = new Task;
+        if ($task->isValid($request, $data)) {
+            DB::beginTransaction();
+            try {
+                $task->fill($data);
+                $task->user_id = auth()->user()->id;
+                $task->save();
+                DB::commit();
+                return redirect()->route('tasks.index');
+            } catch (\Exception $e) {
+                DB::rollback();
+                Log::error($e->getMessage());
+                return redirect()->route('tasks.create');
+            }
+        }
+        return abort(500);
     }
 
     /**
@@ -60,7 +77,8 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        //
+        $task = Task::find($id);
+        return Inertia::render('Tasks/Edit', ['task' => $task]);
     }
 
     /**
@@ -72,7 +90,22 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $task = Task::find($id);
+        if ($task->isValid($request, $data)) {
+            DB::beginTransaction();
+            try {
+                $task->fill($data);
+                $task->save();
+                DB::commit();
+                return redirect()->route('tasks.index');
+            } catch (\Exception $e) {
+                DB::rollback();
+                Log::error($e->getMessage());
+                return Inertia::render('Tasks/Edit', ['task' => $task]);
+            }
+        }
+        return abort(500);
     }
 
     /**
@@ -83,6 +116,8 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $task = Task::find($id);
+        $task->delete();
+        return redirect()->route('tasks.index');
     }
 }

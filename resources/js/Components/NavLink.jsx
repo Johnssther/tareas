@@ -8,7 +8,7 @@ export default function NavLink({ href, active, children }) {
             className={
                 active
                     ? 'nav-link text-warning'
-                    : 'nav-link text-secondary'
+                    : 'nav-link text-white'
             }
         >
             {children}

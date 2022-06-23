@@ -57,52 +57,33 @@ export default function Edit(props) {
                                 </div>
                             </div>
                             <div className="row">
+                                <div className="mb-3 offset-md-2 col-md-4">
+                                    <label htmlFor="key_telegram" className="form-label">Key Telegram</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        name="key_telegram"
+                                        placeholder="XXXXXXXXXX:000000000000000"
+                                        value={data.key_telegram}
+                                        onChange={onHandleChange}
+                                    ></input>
+                                </div>
+                                <div className="mb-3 col-md-4">
+                                    <label htmlFor="chatid_telegram" className="form-label">Chat ID</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        name="chatid_telegram"
+                                        placeholder='0000000000'
+                                        value={data.chatid_telegram}
+                                        onChange={onHandleChange}
+                                    ></input>
+                                </div>
+                            </div>
+                            <div className="row">
                                 <div className="mb-3 offset-md-2 col-md-8">
                                     <button type="submit" className="btn btn-dark">Actualizar pefil</button>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='row mt-2'>
-                        <div className='card col-sm-6'>
-                            <div className='card-header'>
-                                Conexión con Telégram
-                            </div>
-                            <div className='card-body'>
-                                <div className="row">
-                                    <div className="mb-3 offset-md-2 col-md-8">
-                                        <label htmlFor="key_telegram" className="form-label">Key Telegram</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            name="key_telegram"
-                                            placeholder="XXXXXXXXXX:00000000000000000000000000"
-                                            value={data.key_telegram}
-                                            onChange={onHandleChange}
-                                        ></input>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="mb-3 offset-md-2 col-md-8">
-                                        <label htmlFor="chatid_telegram" className="form-label">Chat ID</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            name="chatid_telegram"
-                                            placeholder='0000000000'
-                                            value={data.chatid_telegram}
-                                            onChange={onHandleChange}
-                                        ></input>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='card col-sm-6'>
-                            <div className='card-header'>
-                                Conexión con Whatsaap
-                            </div>
-                            <div className='card-body'>
-                                <p>Proximamente</p>
                             </div>
                         </div>
                     </div>
