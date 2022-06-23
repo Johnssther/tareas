@@ -6,17 +6,14 @@ import swal from 'sweetalert';
 export default function Create(props) {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
-        status: '',
-        priority_level: '',
         create_new_register: false,
-        count: 0,
     });
     const onHandleChange = (event) => {
         setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
     };
     const submit = (e) => {
         e.preventDefault();
-        post(route('tasks.store'));
+        post(route('markers.store'));
         swal("¡Registro salvado con exito!", {
             icon: "success",
             timer: 1500,
@@ -26,7 +23,7 @@ export default function Create(props) {
         <Admin
             auth={props.auth}
             errors={props.errors}
-            header={'Create'}
+            header={'Markers / Create'}
         >
             <Head title="Tasks" />
             <div className="container mt-3">
@@ -35,7 +32,7 @@ export default function Create(props) {
                         <div className={`${processing ? 'spinner-border' : ''}`}></div>
                     </div>
                     <div className="card-header">
-                        <Link href={route('tasks.index')} className="underline text-sm text-gray-600 hover:text-gray-900">
+                        <Link href={route('markers.index')} className="underline text-sm text-gray-600 hover:text-gray-900">
                             Atrás
                         </Link>
                     </div>
@@ -58,7 +55,7 @@ export default function Create(props) {
 
                             <div className="row">
                                 <div className="mb-3 col-md-6">
-                                    <label htmlFor="name" className="form-label">Nombre Tarea</label>
+                                    <label htmlFor="name" className="form-label">Nombre Marcador</label>
                                     <input
                                         type="text"
                                         className="form-control"
@@ -67,33 +64,6 @@ export default function Create(props) {
                                         onChange={onHandleChange}
                                     ></input>
                                     {errors.name && <div className="text-danger">{errors.name}</div>}
-                                </div>
-                                <div className="mb-3 col-md-6">
-                                    <label htmlFor="status" className="form-label">Estado</label>
-                                    <select className="form-select" name="status"
-                                        defaultValue={data.status}
-                                        onChange={onHandleChange}
-                                    >
-                                        <option value="">Seleccione</option>
-                                        <option value="PENDING">PENDIENTE</option>
-                                        <option value="STARTED">INICIADO</option>
-                                        <option value="FINISHED">FINALIZADO</option>
-                                    </select>
-                                    {errors.status && <div className="text-danger">{errors.status}</div>}
-                                </div>
-                                <div className="mb-3 col-md-6">
-                                    <label htmlFor="priority_level" className="form-label">PRIORIDAD</label>
-                                    <select className="form-select" name="priority_level"
-                                        defaultValue={data.priority_level}
-                                        onChange={onHandleChange}
-                                    >
-                                        <option value="">Seleccione</option>
-                                        <option value="LOW">BAJO</option>
-                                        <option value="NORMAL">NORMAL</option>
-                                        <option value="HIGH">ALTO</option>
-                                        <option value="URGENT">URGENTE</option>
-                                    </select>
-                                    {errors.priority_level && <div className="text-danger">{errors.priority_level}</div>}
                                 </div>
                             </div>
                             <button type="submit" className="btn btn-dark">Guardar</button>

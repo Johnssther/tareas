@@ -48,6 +48,9 @@ class TaskController extends Controller
                 $task->user_id = auth()->user()->id;
                 $task->save();
                 DB::commit();
+                if ($request->create_new_register) {
+                    return redirect()->route('tasks.create');
+                }
                 return redirect()->route('tasks.index');
             } catch (\Exception $e) {
                 DB::rollback();

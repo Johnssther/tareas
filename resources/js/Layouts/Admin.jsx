@@ -30,6 +30,11 @@ export default function Admin({ auth, header, children, errors }) {
                                 </NavLink>
                             </li>
                             <li className="nav-item">
+                                <NavLink href={route('markers.index')} active={route().current('markers*')}>
+                                    Marcadores
+                                </NavLink>
+                            </li>
+                            <li className="nav-item">
                                 <NavLink href={route('tareas.index')} active={route().current('tareas*')}>
                                     Tasks
                                 </NavLink>

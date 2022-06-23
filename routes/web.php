@@ -32,8 +32,9 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::resource('profile', App\Http\Controllers\Admin\ProfileController::class)->middleware(['auth', 'verified']);
 Route::resource('tareas', App\Http\Controllers\TareaController::class)->middleware(['auth', 'verified']);
 Route::resource('tasks', App\Http\Controllers\Admin\TaskController::class)->middleware(['auth', 'verified']);
-Route::resource('profile', App\Http\Controllers\Admin\ProfileController::class)->middleware(['auth', 'verified']);
+Route::resource('markers', App\Http\Controllers\Admin\MarkerController::class)->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';
