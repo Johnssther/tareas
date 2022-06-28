@@ -92,7 +92,24 @@ class MarkerController extends Controller
      */
     public function update(Request $request, Marker $marker)
     {
-        //
+        $data = $request->all();
+        if ($marker->isValid($request, $data)) {
+            DB::beginTransaction();
+            try {
+                $marker->fill($data);
+                $marker->save();
+                DB::commit();
+                if ($request->create_new_register) {
+                    return redirect()->route('markers.create');
+                }
+                return redirect()->route('markers.index');
+            } catch (\Exception $e) {
+                DB::rollback();
+                Log::error($e->getMessage());
+                return redirect()->route('markers.create');
+            }
+        }
+        return abort(500);
     }
 
     /**
@@ -103,7 +120,11 @@ class MarkerController extends Controller
      */
     public function destroy(Marker $marker)
     {
-        $marker->delete();
+        $marker->load('detail');
+        if(!count($marker->detail)) {
+            $marker->delete();
+        }
+        
         return redirect()->route('markers.index');
     }
 }

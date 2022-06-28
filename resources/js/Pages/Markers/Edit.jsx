@@ -1,7 +1,8 @@
 import React from 'react';
 import Admin from '@/Layouts/Admin';
 import { Link, Head, useForm } from '@inertiajs/inertia-react';
-import MarkerDetails from '@/Pages/Markers/Components/MarkerDetails/Index'
+import MarkerDetails from '@/Pages/Markers/Components/MarkerDetails/Index';
+import Createdetail from '@/Pages/Markers/Createdetail';
 
 export default function Create(props) {
     const { marker } = props;
@@ -52,6 +53,8 @@ export default function Create(props) {
                         </form>
                     </div>
                 </div>
+                {/* Create detail */}
+                <Createdetail marker={marker.id} />
             </div>
         </Admin>
     );

@@ -41,18 +41,16 @@ class MarkerDetailController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $marker = new Marker;
-        if ($marker->isValid($request, $data)) {
+        $markerDetail = new MarkerDetail;
+        if ($markerDetail->isValid($request, $data)) {
             DB::beginTransaction();
             try {
-                $marker->fill($data);
-                $marker->user_id = auth()->user()->id;
-                $marker->save();
+                $markerDetail->fill($data);
+                $markerDetail->marker_id = $request->marker_id;
+                $markerDetail->save();
                 DB::commit();
-                if ($request->create_new_register) {
-                    return redirect()->route('markers.create');
-                }
                 return redirect()->route('markers.index');
+
             } catch (\Exception $e) {
                 DB::rollback();
                 Log::error($e->getMessage());
